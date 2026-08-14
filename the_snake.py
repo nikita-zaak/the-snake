@@ -43,7 +43,7 @@ class GameObject:
 
     def __init__(
             self,
-            body_color,
+            body_color=(0, 0, 0),
             position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     ):
         self.position = position
