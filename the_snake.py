@@ -22,10 +22,14 @@ SNAKE_COLOR: tuple = (0, 255, 0)
 SPEED: int = 20
 
 DIRECTION_MAP: dict = {
-    (pygame.K_UP, DOWN): UP,
-    (pygame.K_DOWN, UP): DOWN,
-    (pygame.K_LEFT, RIGHT): LEFT,
-    (pygame.K_RIGHT, LEFT): RIGHT,
+    (pygame.K_UP, RIGHT): UP,
+    (pygame.K_UP, LEFT): UP,
+    (pygame.K_DOWN, RIGHT): DOWN,
+    (pygame.K_DOWN, LEFT): DOWN,
+    (pygame.K_LEFT, UP): LEFT,
+    (pygame.K_LEFT, DOWN): LEFT,
+    (pygame.K_RIGHT, UP): RIGHT,
+    (pygame.K_RIGHT, DOWN): RIGHT,
 }
 
 screen: pygame.Surface = pygame.display.set_mode(
@@ -69,7 +73,7 @@ class Apple(GameObject):
 
     def randomize_position(
             self,
-            occupied_positions: list | None = None
+            occupied_positions: list = None
     ) -> None:
         """Устанавливает случайное положение яблока на игровом поле."""
         if occupied_positions is None:
