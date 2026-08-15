@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import randint
 
 import pygame
 
@@ -68,7 +68,7 @@ class Apple(GameObject):
         self.randomize_position()
 
     def randomize_position(
-            self, 
+            self,
             occupied_positions: list | None = None
     ) -> None:
         """Устанавливает случайное положение яблока на игровом поле."""
