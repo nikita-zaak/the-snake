@@ -1,23 +1,18 @@
-from random import randint
+from random import choice, randint
 
 import pygame
-
 
 SCREEN_WIDTH: int = 640
 SCREEN_HEIGHT: int = 480
 CENTER_POSITION: tuple = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-
-
 GRID_SIZE: int = 20
 GRID_WIDTH: int = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT: int = SCREEN_HEIGHT // GRID_SIZE
-
 
 UP: tuple = (0, -1)
 DOWN: tuple = (0, 1)
 LEFT: tuple = (-1, 0)
 RIGHT: tuple = (1, 0)
-
 
 BOARD_BACKGROUND_COLOR: tuple = (0, 0, 0)
 BORDER_COLOR: tuple = (93, 216, 228)
@@ -26,7 +21,6 @@ SNAKE_COLOR: tuple = (0, 255, 0)
 
 SPEED: int = 20
 
-
 DIRECTION_MAP: dict = {
     (pygame.K_UP, DOWN): UP,
     (pygame.K_DOWN, UP): DOWN,
@@ -34,11 +28,13 @@ DIRECTION_MAP: dict = {
     (pygame.K_RIGHT, LEFT): RIGHT,
 }
 
-
 screen: pygame.Surface = pygame.display.set_mode(
     (SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32
 )
+
+
 pygame.display.set_caption('Змейка')
+
 
 clock: pygame.time.Clock = pygame.time.Clock()
 
@@ -72,7 +68,7 @@ class Apple(GameObject):
         self.randomize_position()
 
     def randomize_position(
-            self,
+            self, 
             occupied_positions: list | None = None
     ) -> None:
         """Устанавливает случайное положение яблока на игровом поле."""
@@ -146,7 +142,7 @@ def handle_keys(game_object: Snake) -> None:
         if event.type == pygame.QUIT:
             pygame.quit()
             raise SystemExit
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:
             new_direction = DIRECTION_MAP.get(
                 (event.key, game_object.direction)
             )
@@ -165,13 +161,12 @@ def main() -> None:
         handle_keys(snake)
         snake.move()
 
-        head_position = snake.get_head_position()
-
-        if head_position == apple.position:
+        if snake.get_head_position() == apple.position:
             snake.length += 1
             apple.randomize_position(snake.positions)
 
-        if head_position in snake.positions[1:]:
+        # Проверка столкновения с собой:
+        if snake.get_head_position() in snake.positions[1:]:
             snake.reset()
             screen.fill(BOARD_BACKGROUND_COLOR)
 
@@ -180,5 +175,5 @@ def main() -> None:
         pygame.display.update()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
